@@ -22,12 +22,18 @@ frontmatter에서 다음 값을 추출합니다:
 - `name` (필수) — 예: `My Team`
 - `scope` (선택, 기본값: `team`)
 
-## Step 3: 로컬 저장
+## Step 3: GUARDRAILS.md fetch
+
+`{base_url}/GUARDRAILS.md`를 WebFetch로 가져옵니다.
+이 문서는 팀 컨텍스트에 수집 가능한 내용의 기준을 정의합니다.
+
+## Step 4: 로컬 저장
 
 `~/.claude/team-context/` 디렉토리가 없으면 생성합니다.
 README.md 전체 내용을 `~/.claude/team-context/{id}.md`에 저장합니다.
+GUARDRAILS.md 전체 내용을 `~/.claude/team-context/{id}.guardrails.md`에 저장합니다.
 
-## Step 4: 에이전트 설정 업데이트
+## Step 5: 에이전트 설정 업데이트
 
 현재 에이전트 환경을 감지하여 해당 설정 파일에 포인터를 추가합니다.
 
@@ -55,18 +61,20 @@ README.md 전체 내용을 `~/.claude/team-context/{id}.md`에 저장합니다.
 ## Team Context: {name}
 
 로컬 경로: ~/.claude/team-context/{id}.md
+가드레일: ~/.claude/team-context/{id}.guardrails.md
 원격 문서: {base_url}/README.md
 
 위 로컬 파일에 문서 지도가 있습니다.
 문서 지도의 경로는 `{base_url}/{path}` 형식으로 fetch 가능합니다.
 모르는 용어·시스템·프로젝트명을 만나면 문서 지도에서 찾아 fetch하세요.
+팀 컨텍스트에 내용을 추가/수정할 때는 반드시 가드레일을 먼저 읽고 따르세요.
 <!-- /tc:{id} -->
 ```
 
 > **참고**: `AGENTS.md`를 지원하는 에이전트(Copilot, Gemini, Codex, Cursor, Windsurf 등)는
 > 프로젝트 루트에 `AGENTS.md`가 있으면 별도 설정 없이 자동으로 읽습니다.
 
-## Step 5: 완료 메시지
+## Step 6: 완료 메시지
 
 설치가 끝나면 다음 형식으로 출력합니다:
 
