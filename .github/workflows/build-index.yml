@@ -1,0 +1,64 @@
+name: Build Index
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build search index
+        run: |
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+
+          function readFrontmatter(content) {
+            const match = content.match(/^---\n([\s\S]*?)\n---/);
+            if (!match) return {};
+            const fm = {};
+            match[1].split('\n').forEach(line => {
+              const [key, ...val] = line.split(': ');
+              if (key && val.length) fm[key.trim()] = val.join(': ').trim();
+            });
+            return fm;
+          }
+
+          function walk(dir, base = dir) {
+            const entries = [];
+            if (!fs.existsSync(dir)) return entries;
+            for (const file of fs.readdirSync(dir)) {
+              const full = path.join(dir, file);
+              const rel = path.relative(base, full);
+              if (fs.statSync(full).isDirectory()) {
+                if (file.startsWith('.') || file === 'node_modules') continue;
+                entries.push(...walk(full, base));
+              } else if (file.endsWith('.md') && file !== 'SETUP.md') {
+                const content = fs.readFileSync(full, 'utf8');
+                const fm = readFrontmatter(content);
+                entries.push({
+                  id: fm.id || path.basename(file, '.md'),
+                  summary: fm.summary || fm.description || '',
+                  tags: fm.tags ? fm.tags.replace(/[\[\]]/g, '').split(',').map(t => t.trim()) : [],
+                  path: rel,
+                });
+              }
+            }
+            return entries;
+          }
+
+          const index = walk('.');
+          fs.mkdirSync('dist', { recursive: true });
+          fs.writeFileSync('dist/index.json', JSON.stringify(index, null, 2));
+          console.log('Built index with', index.length, 'entries');
+          "
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          keep_files: true

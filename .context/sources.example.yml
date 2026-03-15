@@ -1,0 +1,30 @@
+# 외부 소스 동기화 설정 (선택)
+#
+# 이 파일을 sources.yml로 복사하고 설정하면
+# 에이전트가 외부 소스에서 자동 동기화할 수 있습니다.
+#
+# trigger 옵션:
+#   manual    - 명시적 요청 시에만 ("팀 컨텍스트 동기화해줘")
+#   scheduled - GitHub Actions 스케줄로 자동 실행
+
+sources:
+  - id: confluence-team-wiki
+    type: confluence
+    space: YOUR_SPACE_KEY
+    description: "팀 위키 페이지"
+    sync_to: docs/
+    trigger: manual
+
+  - id: jira-project
+    type: jira
+    project: YOUR_PROJECT_KEY
+    description: "진행 중인 에픽/스프린트"
+    sync_to: projects/current-sprint.md
+    trigger: manual
+
+  - id: github-repos
+    type: github_enterprise
+    org: your-org
+    description: "팀 레포 목록 및 주요 정보"
+    sync_to: services/
+    trigger: manual
