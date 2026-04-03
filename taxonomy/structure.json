@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "description": "Team Context knowledge taxonomy — 7 cognitive categories based on 14 academic papers",
+  "categories": [
+    {
+      "id": "domains",
+      "name": "Domain Knowledge",
+      "cognitiveFunction": "WHAT we know",
+      "memoryType": "structural",
+      "description": "Technical and domain-specific knowledge organized by expertise area",
+      "academicBasis": "Walsh & Ungson (1991) organizational memory — structural retention bin",
+      "path": "domains/",
+      "subfolders": "user-defined (e.g., frontend/, backend/, infra/, ai/, product/)",
+      "filePattern": "{domain}/{topic-slug}.md"
+    },
+    {
+      "id": "decisions",
+      "name": "Decisions & ADRs",
+      "cognitiveFunction": "WHY we decided",
+      "memoryType": "contextual",
+      "description": "Architecture decisions, design choices, and their rationale",
+      "academicBasis": "Brown, Collins & Duguid (1989) situated cognition — knowledge bound to context",
+      "path": "decisions/",
+      "subfolders": "YYYY/",
+      "filePattern": "decisions/{YYYY}/{slug}.md"
+    },
+    {
+      "id": "people",
+      "name": "People & Expertise",
+      "cognitiveFunction": "WHO knows what",
+      "memoryType": "transactive",
+      "description": "Expertise maps — who has what knowledge, skills, and experience",
+      "academicBasis": "Wegner (1987) transactive memory systems; Ren et al. (2007) knowledge directories",
+      "path": "people/",
+      "subfolders": "{name}/",
+      "filePattern": "people/{name}/profile.md"
+    },
+    {
+      "id": "procedures",
+      "name": "Procedures & Playbooks",
+      "cognitiveFunction": "HOW we do it",
+      "memoryType": "procedural",
+      "description": "Step-by-step processes, runbooks, checklists, and onboarding guides",
+      "academicBasis": "Hutchins (1995) distributed cognition — procedural knowledge survives personnel changes",
+      "path": "procedures/",
+      "subfolders": "user-defined (e.g., dev/, ops/, onboarding/)",
+      "filePattern": "procedures/{category}/{slug}.md"
+    },
+    {
+      "id": "artifacts",
+      "name": "Boundary Objects",
+      "cognitiveFunction": "WHAT we share across boundaries",
+      "memoryType": "coordinative",
+      "description": "Specs, designs, agreements, and shared documents that bridge teams or roles",
+      "academicBasis": "Wenger (1998) communities of practice — boundary objects mediate knowledge across CoPs",
+      "path": "artifacts/",
+      "subfolders": "specs/, designs/, agreements/",
+      "filePattern": "artifacts/{type}/{slug}.md"
+    },
+    {
+      "id": "tacit",
+      "name": "Tacit Knowledge",
+      "cognitiveFunction": "WHAT we sense / intuit",
+      "memoryType": "tacit-externalized",
+      "description": "Heuristics, lessons learned, patterns, and anti-patterns — tacit knowledge made explicit",
+      "academicBasis": "Nonaka & Takeuchi (1995) SECI model — externalization of tacit to explicit knowledge",
+      "path": "tacit/",
+      "subfolders": "heuristics/, lessons/, patterns/, anti-patterns/",
+      "filePattern": "tacit/{category}/{slug}.md"
+    },
+    {
+      "id": "glossary",
+      "name": "Glossary & Ontology",
+      "cognitiveFunction": "HOW we name things",
+      "memoryType": "semantic",
+      "description": "Team-specific terms, acronyms, and naming conventions — shared vocabulary",
+      "academicBasis": "Collins & Quillian (1969) semantic networks — cognitive economy via shared hierarchy",
+      "path": "glossary/",
+      "subfolders": "terms/, acronyms/",
+      "filePattern": "glossary/{type}/{slug}.md"
+    }
+  ],
+  "designPrinciples": [
+    {
+      "rule": "7 ± 2 top-level categories, depth ≤ 4",
+      "source": "Sweller (1988) cognitive load theory"
+    },
+    {
+      "rule": "No file duplication — use frontmatter tags for cross-cutting concerns",
+      "source": "Ranganathan (1933) faceted classification + Collins & Quillian (1969) cognitive economy"
+    },
+    {
+      "rule": "Folder names must match team mental model vocabulary",
+      "source": "Bartlett (1932) / Rumelhart (1980) schema theory"
+    },
+    {
+      "rule": "Structured metadata required on every document",
+      "source": "Lin et al. (2025) KBLaM — structured KB outperforms raw text for AI agents"
+    },
+    {
+      "rule": "Source and context fields mandatory — context-free knowledge is inert knowledge",
+      "source": "Brown, Collins & Duguid (1989) situated cognition"
+    },
+    {
+      "rule": "Design organization + labeling + navigation + search systems together",
+      "source": "Rosenfeld & Morville (1998) information architecture"
+    },
+    {
+      "rule": "Classify by actionability: reference vs actionable vs project-specific",
+      "source": "Forte (2022) PARA method"
+    }
+  ]
+}

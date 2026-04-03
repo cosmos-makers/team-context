@@ -1,8 +1,8 @@
 {
   "name": "team-context",
-  "description": "팀 공유 지식 저장소를 AI 에이전트에 마운트하고 관리하는 플러그인. mount, unmount, update, pull, push 동작을 제공합니다.",
-  "version": "0.1.0",
+  "description": "Evidence-based team knowledge management for AI agents — 7 cognitive categories, hybrid search (FTS5 + vector + graph), atomic fact ingest pipeline.",
+  "version": "0.2.0",
   "author": {
-    "name": "cosmos"
+    "name": "cosmos-makers"
   }
 }

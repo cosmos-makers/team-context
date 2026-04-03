@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Team Context Document Frontmatter",
+  "description": "Required frontmatter schema for all documents in the team-context knowledge base",
+  "type": "object",
+  "required": ["id", "type", "source", "recorded_at"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$",
+      "description": "Unique kebab-case identifier for this knowledge unit"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["fact", "decision", "procedure", "heuristic", "profile", "term", "artifact"],
+      "description": "Knowledge type — maps to top-level taxonomy category"
+    },
+    "domain": {
+      "type": "string",
+      "description": "User-defined domain (e.g., frontend, backend, infra, ai, product, general)"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "active", "deprecated", "archived"],
+      "default": "draft",
+      "description": "Lifecycle status of this knowledge unit"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"],
+      "default": "medium",
+      "description": "How certain — marks the tacit↔explicit spectrum (Nonaka SECI)"
+    },
+    "source": {
+      "type": "string",
+      "enum": ["meeting", "slack", "document", "observation", "code-review", "external"],
+      "description": "Origin channel of this knowledge"
+    },
+    "source_ref": {
+      "type": "string",
+      "description": "URL or file path pointing to the original source"
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Date when this knowledge was captured (YYYY-MM-DD)"
+    },
+    "expires": {
+      "type": ["string", "null"],
+      "format": "date",
+      "default": null,
+      "description": "TTL — date after which this knowledge should be reviewed or archived"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": [],
+      "description": "Faceted cross-cutting classification tags (Ranganathan faceted classification)"
+    },
+    "entities": {
+      "type": "array",
+      "items": { "type": "string" },
+      "default": [],
+      "description": "Named entities for graph linking (people, projects, technologies, orgs)"
+    },
+    "context": {
+      "type": "string",
+      "description": "When and why this knowledge is relevant — situated cognition metadata"
+    },
+    "actionability": {
+      "type": "string",
+      "enum": ["reference", "actionable", "project-specific"],
+      "default": "reference",
+      "description": "PARA-style actionability level"
+    }
+  },
+  "additionalProperties": true
+}
